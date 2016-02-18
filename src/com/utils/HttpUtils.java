@@ -1,9 +1,5 @@
 package com.utils;
 
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.http.HttpEntity;
@@ -18,13 +14,10 @@ import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.util.EntityUtils;
 
-import com.utils.test.Test1;
-
-import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 public class HttpUtils {
-static HttpClient httpClient = null;
+	static HttpClient httpClient = null;
 	
 	static {
 		BasicHttpParams httpParams = new BasicHttpParams();
@@ -49,7 +42,6 @@ static HttpClient httpClient = null;
 		StringEntity entity = null;
 		try {
 			entity = new StringEntity(body,"utf-8");
-			
 			//解决中文乱码问题    
 	        entity.setContentEncoding("UTF-8");    
 	        entity.setContentType("application/json");    
@@ -77,67 +69,25 @@ static HttpClient httpClient = null;
 		return null;
 	} 
 	
-	public static void main(String[] args) {
-		Test1 test = new Test1();
-		/*[
-	      {
-	         "appAccountId": "123",                 
-	        "businessId":"222",
-	        "profileName": "spring assessment",
-	        "assessmentCd": "AD11",
-	        "creationTime": "2015-06-01 00:00:00",
-	        "orderTime":"2015-06-01 00:00:00",
-	         "newFlag":"0"
-	      },
-	      {
-	         "appAccountId": "123",
-	        "businessId":"223",
-	        "profileName": "summer assessment",
-	        "assessmentCd": "AF23",
-	        "creationTime": "2015-06-12 00:00:00",
-	        "orderTime":"2015-06-01 00:00:00",
-	         "newFlag":"0"
-	      },
-	      {
-	         "appAccountId": "124",
-	        "businessId":"",
-	        "profileName": "spring assessment",
-	        "assessmentCd": "AD11",
-	        "creationTime": "2015-06-01 00:00:00", 
-	        "orderTime":"2015-06-01 00:00:00",
-	        "newFlag":"1"
-	      }
-	   ]*/
-
-		test.setAppAccountId(123);
-		test.setAssessmentCd("YZ96");
-		test.setBusinessId("200");
-		test.setProfileName("spring assessment");
-		test.setOrderTime("2015-06-02 00:00:00");
-		test.setCreationTime("2015-06-01 00:00:00");
-		test.setNewFlag("0");
+	public static void main(String[] args) throws Exception {
 		
+		String url = "http://121.14.43.70:25128/argo_iap/SyncAppOrderReq";
+		String entity = "{\"MSISDN\":\"\",\"actionID\":1,\"actionTime\":\"20151208102653\",\"appID\":\"300008928532\",\"channelID\":\"2200125968\",\"checkID\":0,\"exData\":\"1449541605\",\"feeMSISDN\":\"E1C674CBAB2CCF8D\",\"msgType\":\"SyncAppOrderReq\",\"orderID\":\"11151208102653273528\",\"payCode\":\"30000892853210\",\"price\":2000,\"programID\":\"\",\"subsNumb\":1,\"subsSeq\":1,\"totalPrice\":2000,\"tradeID\":\"4EBF5007D6\",\"transactionID\":\"CSSP12816315\",\"version\":\"1.0.0\"}";
+		HttpPost httppost = new HttpPost(url);  
+	   // httppost.addHeader("Authorization", "your token"); //认证token  
+	    httppost.addHeader("Content-Type", "application/json");  
+	    //httppost.addHeader("User-Agent", "imgfornote");  
+	    //http post的json数据格式：  {"name": "your name","parentId": "id_of_parent"}  
+	    httppost.setEntity(new StringEntity(entity)); 
+	    HttpResponse loginHttpResponse = httpClient.execute(httppost);
+		int code = loginHttpResponse.getStatusLine().getStatusCode();
+		String xmlContent = null;
+		if (code == 200) {
+			HttpEntity httpEntity = loginHttpResponse.getEntity();
+			xmlContent = EntityUtils.toString(httpEntity);
+			System.out.println(xmlContent);
+		}
+		httppost.releaseConnection();
 		
-		List<Test1> list = new ArrayList<Test1>();
-		list.add(test);
-		
-		Test1 test2 = new Test1();
-		test2.setAppAccountId(124);
-		test2.setAssessmentCd("AF23");
-		test2.setBusinessId("");
-		test2.setProfileName("spring assessment");
-		test2.setCreationTime("2015-06-01 00:00:00");
-		test2.setOrderTime("2015-06-01 00:00:00");
-		test2.setNewFlag("1");
-		list.add(test2);
-		
-		String body = JSONArray.fromObject(list).toString();
-		Map <String,String>headMap = new HashMap<String,String>();
-		//ShoppingCart
-		//52c698e116dbed4ce0066ff45e605c22
-		headMap.put("Authorization", "qYs2vDurvstsqtotquouuRs9vDnveMhlkU");
-		headMap.put("client_secret", "52c698e116dbed4ce0066ff45e605c22");
-		headMap.put("Content-Type", "application/json");
-		new HttpUtils().JsonHttpPost("", "http://agelocmestage.cn.nuskin.com/agelocme/api/v1/assessment", headMap);
 	}
 }
