@@ -28,6 +28,7 @@ public class JdbcFactory {
             conn = DriverManager.getConnection(url);
             // Statement里面带有很多方法，比如executeUpdate可以实现插入，更新和删除等
             Statement stmt = conn.createStatement();
+            String sql2 = "select * from table where id=? ";
             sql = "create table student(NO char(20),name varchar(20),primary key(NO))";
 //            PreparedStatement ps = conn.prepareStatement(sql);
 //            ResultSet rs = ps.executeQuery();

@@ -14,9 +14,10 @@ public class FileCopy {
 	     try {  
 	        input=new FileInputStream("D:/David/Java/java 高级进阶/files/tiger.jpg");  
 	        out=new FileOutputStream("D:/David/Java/java 高级进阶/files/tiger2.jpg"); //如果文件不存在会自动创建  
-	         
-	        while ((numberRead=input.read(buffer))!=-1) {  //numberRead的目的在于防止最后一次读取的字节小于buffer长度，  
-	           out.write(buffer, 0, numberRead);       //否则会自动被填充0  
+	        while ((numberRead=input.read(buffer))!=-1) {  
+	           //numberRead的目的在于防止最后一次读取的字节小于buffer长度，  
+	           out.write(buffer, 0, numberRead);
+	           //否则会自动被填充0  
 	        }  
 	     } catch (final IOException e) {  
 	        // TODO自动生成的 catch 块  

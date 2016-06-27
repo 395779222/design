@@ -4,6 +4,8 @@ public class Teach extends CoderDecorator{
 
 	public Teach(Coder coder) {
 		super(coder);
+		
+		System.out.println("教育装饰构造");
 	}
 	
 	public void teach(){
@@ -12,6 +14,7 @@ public class Teach extends CoderDecorator{
 	
 	@Override
 	public void doCoding() {
+		System.out.println("教育装饰coding");
 		teach();
 		this.getCoder().doCoding();
 	}

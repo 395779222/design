@@ -36,13 +36,10 @@ import org.apache.commons.io.FileUtils;
  * @author huxiangyu
  */
 public class CommonFileUtils {
-	
-    
     // 各种文件类型
 	public static int ICOMPRESSFILETYPE = 0;
 	public static int IPARSEFILETYPE = 1;
 	public static int IUNKNOWFILETYPE = -1;
-	
 	
 	public static boolean delFile(String targetPath){
          boolean flag=false;
@@ -197,9 +194,7 @@ public class CommonFileUtils {
 		return list;
 	}
 	
-	
 	/**
-	 * 
 	 * 方法说明:判断两个文件的内容是否一致
 	 * 创建人:huxiangyu
 	 * 创建时间:2014-4-17
@@ -428,8 +423,6 @@ public class CommonFileUtils {
 		return createFile(file, force);
 	}
 	
-	
-	
 	/**
 	 * 方法说明: 创建文件夹 ,force如果为true表示如果不存在上级目录,则创建
 	 * 创建人: 胡翔宇
@@ -586,6 +579,7 @@ public class CommonFileUtils {
 		}
 		return list;
 	}
+	
 	/**
 	 * 方法说明: 读取文件的byte数组
 	 * 创建人: huxiangyu

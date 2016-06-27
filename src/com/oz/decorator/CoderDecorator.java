@@ -5,7 +5,9 @@ public abstract class CoderDecorator implements Coder{
 	
 	
 	public CoderDecorator(Coder coder){
+		System.out.println("装饰父类构造");
 		this.coder = coder;
+		
 	}
 	
 	
